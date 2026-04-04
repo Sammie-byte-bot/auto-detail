@@ -1,0 +1,699 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Login — AutoDetail</title>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
+    />
+    <style>
+      :root {
+        --amber: #b8860b;
+        --amber-light: #d4a017;
+        --amber-pale: #fff8e7;
+        --amber-dim: rgba(184, 134, 11, 0.1);
+        --amber-border: rgba(184, 134, 11, 0.22);
+        --navy: #1a2340;
+        --navy-mid: #2d3a5c;
+        --white: #ffffff;
+        --gray-50: #f9fafb;
+        --gray-100: #f3f4f6;
+        --gray-200: #e5e7eb;
+        --gray-300: #d1d5db;
+        --gray-400: #9ca3af;
+        --gray-500: #6b7280;
+        --gray-700: #374151;
+        --text: #1a2340;
+        --text-muted: #6b7280;
+        --border: #e5e7eb;
+        --shadow-sm:
+          0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+        --shadow: 0 4px 16px rgba(0, 0, 0, 0.08), 0 1px 4px rgba(0, 0, 0, 0.04);
+        --shadow-md:
+          0 8px 30px rgba(0, 0, 0, 0.1), 0 2px 8px rgba(0, 0, 0, 0.04);
+        --shadow-lg:
+          0 20px 50px rgba(0, 0, 0, 0.12), 0 4px 16px rgba(0, 0, 0, 0.06);
+        --radius: 14px;
+        --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+        font-family: "Inter", sans-serif;
+      }
+      body {
+        background: linear-gradient(
+          145deg,
+          var(--gray-50) 0%,
+          var(--white) 100%
+        );
+        display: flex;
+        min-height: 100vh;
+        color: var(--text);
+      }
+      ::-webkit-scrollbar {
+        width: 4px;
+      }
+      ::-webkit-scrollbar-thumb {
+        background: var(--amber);
+      }
+
+      /* LEFT PANEL */
+      .left {
+        width: 440px;
+        min-height: 100vh;
+        background: var(--navy);
+        display: flex;
+        flex-direction: column;
+        padding: 48px 36px;
+        position: relative;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .left::before {
+        content: "";
+        position: absolute;
+        top: -80px;
+        right: -80px;
+        width: 320px;
+        height: 320px;
+        border-radius: 50%;
+        background: rgba(212, 160, 23, 0.06);
+      }
+      .left::after {
+        content: "";
+        position: absolute;
+        bottom: -60px;
+        left: -40px;
+        width: 240px;
+        height: 240px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.03);
+      }
+      .brand {
+        position: relative;
+        z-index: 1;
+        flex-shrink: 0;
+      }
+      .logo-row {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        margin-bottom: 8px;
+      }
+      .logo-icon {
+        width: 52px;
+        height: 52px;
+        background: var(--amber-light);
+        border-radius: 12px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.3rem;
+        color: var(--navy);
+        flex-shrink: 0;
+        box-shadow: 0 4px 16px rgba(212, 160, 23, 0.35);
+      }
+      .brand h1 {
+        font-family: "Syne", sans-serif;
+        font-weight: 800;
+        font-size: 1.7rem;
+        color: #fff;
+        letter-spacing: -0.02em;
+        line-height: 1.2;
+      }
+      .brand h1 span {
+        color: var(--amber-light);
+      }
+      .brand-sub {
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.82rem;
+        font-weight: 500;
+        margin-top: 2px;
+      }
+      .brand-desc {
+        color: rgba(255, 255, 255, 0.5);
+        font-size: 0.9rem;
+        line-height: 1.65;
+        margin-top: 14px;
+      }
+      .nav-preview {
+        margin-top: 36px;
+        flex: 1;
+        position: relative;
+        z-index: 1;
+      }
+      .nav-label {
+        font-size: 0.62rem;
+        font-weight: 700;
+        color: rgba(255, 255, 255, 0.28);
+        text-transform: uppercase;
+        letter-spacing: 0.14em;
+        padding: 0 10px;
+        margin: 22px 0 8px;
+      }
+      .nav-item {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 11px 14px;
+        border-radius: 10px;
+        color: rgba(255, 255, 255, 0.45);
+        font-size: 0.875rem;
+        font-weight: 500;
+        margin-bottom: 3px;
+      }
+      .nav-item i {
+        width: 18px;
+        text-align: center;
+        font-size: 0.88rem;
+      }
+      .nav-item.active {
+        background: rgba(255, 255, 255, 0.08);
+        color: #fff;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .left-footer {
+        margin-top: auto;
+        padding-top: 24px;
+        border-top: 1px solid rgba(255, 255, 255, 0.08);
+        position: relative;
+        z-index: 1;
+      }
+      .admin-badge {
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 12px 14px;
+        background: rgba(255, 255, 255, 0.06);
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+      .admin-avatar {
+        width: 34px;
+        height: 34px;
+        background: rgba(212, 160, 23, 0.25);
+        border: 1px solid rgba(212, 160, 23, 0.3);
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 0.88rem;
+        color: var(--amber-light);
+        font-weight: 800;
+      }
+      .admin-name {
+        font-size: 0.85rem;
+        color: #fff;
+        font-weight: 600;
+        line-height: 1.2;
+      }
+      .admin-email {
+        font-size: 0.75rem;
+        color: rgba(255, 255, 255, 0.35);
+      }
+
+      /* RIGHT PANEL */
+      .right {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 48px 40px;
+        background: var(--gray-50);
+      }
+      .form-box {
+        width: 100%;
+        max-width: 440px;
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 20px;
+        padding: 44px;
+        box-shadow: var(--shadow-lg);
+      }
+      .form-header {
+        margin-bottom: 2rem;
+      }
+      .form-header h2 {
+        font-family: "Syne", sans-serif;
+        font-size: 1.85rem;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 8px;
+        letter-spacing: -0.02em;
+      }
+      .form-header p {
+        color: var(--text-muted);
+        font-size: 0.9rem;
+        line-height: 1.6;
+      }
+      .field {
+        margin-bottom: 1.3rem;
+      }
+      .field label {
+        display: block;
+        font-size: 0.82rem;
+        font-weight: 600;
+        color: var(--gray-700);
+        margin-bottom: 0.5rem;
+        letter-spacing: 0.02em;
+      }
+      .input-wrap {
+        position: relative;
+      }
+      .input-wrap i.prefix {
+        position: absolute;
+        left: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+        color: var(--gray-400);
+        font-size: 0.88rem;
+      }
+      .input-wrap input {
+        width: 100%;
+        background: var(--gray-50);
+        border: 1.5px solid var(--gray-200);
+        color: var(--text);
+        border-radius: 10px;
+        padding: 0.875rem 1rem 0.875rem 2.85rem;
+        font-family: "Inter", sans-serif;
+        font-size: 0.9rem;
+        outline: none;
+        transition:
+          border-color 0.2s,
+          box-shadow 0.2s,
+          background 0.2s;
+      }
+      .input-wrap input:focus {
+        background: var(--white);
+        border-color: var(--amber-light);
+        box-shadow: 0 0 0 3px var(--amber-dim);
+      }
+      .input-wrap input::placeholder {
+        color: var(--gray-400);
+      }
+      .input-wrap input.error-input {
+        border-color: #dc2626;
+        box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+      }
+      .toggle-pw {
+        position: absolute;
+        right: 14px;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+        border: none;
+        color: var(--gray-400);
+        cursor: pointer;
+        font-size: 0.88rem;
+        transition: color 0.2s;
+        padding: 4px;
+      }
+      .toggle-pw:hover {
+        color: var(--amber);
+      }
+      .error-msg {
+        display: none;
+        align-items: center;
+        gap: 0.6rem;
+        background: #fef2f2;
+        border: 1px solid #fecaca;
+        border-radius: 10px;
+        padding: 0.85rem 1.1rem;
+        margin-bottom: 1.2rem;
+        font-size: 0.875rem;
+        color: #dc2626;
+      }
+      .error-msg.show {
+        display: flex;
+      }
+      .error-msg i {
+        flex-shrink: 0;
+      }
+      .submit-btn {
+        width: 100%;
+        background: var(--navy);
+        color: #fff;
+        font-family: "Syne", sans-serif;
+        font-weight: 700;
+        font-size: 0.95rem;
+        padding: 0.95rem;
+        border-radius: 12px;
+        border: none;
+        cursor: pointer;
+        transition: var(--transition);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.6rem;
+        box-shadow: 0 4px 16px rgba(26, 35, 64, 0.25);
+        margin-top: 0.5rem;
+      }
+      .submit-btn:hover {
+        background: var(--navy-mid);
+        transform: translateY(-1px);
+        box-shadow: 0 8px 24px rgba(26, 35, 64, 0.3);
+      }
+      .submit-btn:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+      }
+      .spinner {
+        width: 16px;
+        height: 16px;
+        border: 2.5px solid rgba(255, 255, 255, 0.3);
+        border-top-color: #fff;
+        border-radius: 50%;
+        animation: spin 0.7s linear infinite;
+        display: none;
+      }
+      .submit-btn.loading .spinner {
+        display: block;
+      }
+      .submit-btn.loading .btn-text {
+        display: none;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+      .success-box {
+        display: none;
+        text-align: center;
+        padding: 2rem 0;
+      }
+      .check-icon {
+        width: 60px;
+        height: 60px;
+        background: var(--amber-pale);
+        border: 2px solid var(--amber-border);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+        color: var(--amber-light);
+        margin: 0 auto 1.2rem;
+        animation: popIn 0.4s ease;
+      }
+      @keyframes popIn {
+        from {
+          transform: scale(0.6);
+          opacity: 0;
+        }
+        to {
+          transform: scale(1);
+          opacity: 1;
+        }
+      }
+      .success-box h3 {
+        font-family: "Syne", sans-serif;
+        font-size: 1.3rem;
+        font-weight: 800;
+        color: var(--navy);
+        margin-bottom: 0.4rem;
+      }
+      .success-box p {
+        font-size: 0.9rem;
+        color: var(--text-muted);
+      }
+      .form-footer {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        margin-top: 1.5rem;
+        font-size: 0.78rem;
+        color: var(--gray-400);
+        text-align: center;
+        justify-content: center;
+      }
+      .form-footer i {
+        color: var(--amber-light);
+      }
+
+      @media (max-width: 800px) {
+        .left {
+          display: none;
+        }
+        .right {
+          background: var(--white);
+          padding: 32px 24px;
+          align-items: flex-start;
+          padding-top: 80px;
+        }
+      }
+      @media (max-width: 480px) {
+        .form-box {
+          padding: 32px 24px;
+          border-radius: 14px;
+          box-shadow: none;
+          border: none;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="left">
+      <div class="brand">
+        <div class="logo-row">
+          <div class="logo-icon"><i class="fa-solid fa-car-side"></i></div>
+          <div>
+            <h1>Auto<span>Detail</span></h1>
+            <div class="brand-sub">Admin Portal</div>
+          </div>
+        </div>
+        <p class="brand-desc">
+          Manage bookings, track revenue, and oversee detailing operations from
+          one place.
+        </p>
+      </div>
+      <div class="nav-preview">
+        <div class="nav-label">Dashboard</div>
+        <div class="nav-item active">
+          <i class="fa-solid fa-gauge-high"></i> Dashboard
+        </div>
+        <div class="nav-item">
+          <i class="fa-solid fa-calendar-check"></i> Appointments
+        </div>
+        <div class="nav-label">Management</div>
+        <div class="nav-item"><i class="fa-solid fa-users"></i> Customers</div>
+        <div class="nav-item">
+          <i class="fa-solid fa-chart-bar"></i> Analytics
+        </div>
+        <div class="nav-item"><i class="fa-solid fa-gear"></i> Settings</div>
+      </div>
+      <div class="left-footer">
+        <div class="admin-badge">
+          <div class="admin-avatar">A</div>
+          <div>
+            <div class="admin-name">Administrator</div>
+            <div class="admin-email">admin@autodetail.com</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="right">
+      <div class="form-box">
+        <div class="form-header">
+          <h2>Admin Login</h2>
+          <p>Enter your credentials to access the AutoDetail dashboard.</p>
+        </div>
+
+        <div class="error-msg" id="error-msg">
+          <i class="fa-solid fa-triangle-exclamation"></i>
+          <span id="error-text">Invalid email or password.</span>
+        </div>
+
+        <div id="login-form">
+          <div class="field">
+            <label>Email Address</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-envelope prefix"></i>
+              <input
+                type="email"
+                id="email"
+                placeholder="admin@autodetail.com"
+                autocomplete="email"
+              />
+            </div>
+          </div>
+          <div class="field">
+            <label>Password</label>
+            <div class="input-wrap">
+              <i class="fa-solid fa-lock prefix"></i>
+              <input
+                type="password"
+                id="password"
+                placeholder="Enter your password"
+                autocomplete="current-password"
+              />
+              <button
+                class="toggle-pw"
+                id="toggle-pw"
+                type="button"
+                tabindex="-1"
+              >
+                <i class="fa-solid fa-eye"></i>
+              </button>
+            </div>
+          </div>
+          <button class="submit-btn" id="login-btn">
+            <div class="spinner"></div>
+            <span class="btn-text"
+              ><i class="fa-solid fa-right-to-bracket"></i> Sign In to
+              Dashboard</span
+            >
+          </button>
+        </div>
+
+        <div class="success-box" id="success-box">
+          <div class="check-icon"><i class="fa-solid fa-check"></i></div>
+          <h3>Welcome back, Admin!</h3>
+          <p>Redirecting to dashboard...</p>
+        </div>
+
+        <div class="form-footer">
+          <i class="fa-solid fa-shield-halved"></i>
+          <span
+            >Admin access required. Contact support if you need
+            privileges.</span
+          >
+        </div>
+      </div>
+    </div>
+
+    <script type="module">
+      import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+      import {
+        getAuth,
+        signInWithEmailAndPassword,
+        onAuthStateChanged,
+        signOut,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+      import {
+        getFirestore,
+        doc,
+        getDoc,
+      } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+      import { app, auth, db } from "./js/firebase-config.js";
+
+      const emailInput = document.getElementById("email");
+      const pwInput = document.getElementById("password");
+      const loginBtn = document.getElementById("login-btn");
+      const errorMsg = document.getElementById("error-msg");
+      const errorText = document.getElementById("error-text");
+      const successBox = document.getElementById("success-box");
+      const loginForm = document.getElementById("login-form");
+      const togglePw = document.getElementById("toggle-pw");
+
+      onAuthStateChanged(auth, async (user) => {
+        if (user) {
+          try {
+            const userDoc = await getDoc(doc(db, "users", user.uid));
+            if (userDoc.exists() && userDoc.data().role === "admin")
+              showSuccess();
+          } catch (e) {
+            console.error("Auth state check failed:", e);
+          }
+        }
+      });
+
+      togglePw.addEventListener("click", () => {
+        const isText = pwInput.type === "text";
+        pwInput.type = isText ? "password" : "text";
+        togglePw.innerHTML = isText
+          ? '<i class="fa-solid fa-eye"></i>'
+          : '<i class="fa-solid fa-eye-slash"></i>';
+      });
+
+      [emailInput, pwInput].forEach((el) => {
+        el.addEventListener("input", () => {
+          errorMsg.classList.remove("show");
+          el.classList.remove("error-input");
+        });
+      });
+
+      pwInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") loginBtn.click();
+      });
+
+      loginBtn.addEventListener("click", async () => {
+        const email = emailInput.value.trim();
+        const password = pwInput.value;
+        if (!email) {
+          showError("Please enter your email address.");
+          emailInput.classList.add("error-input");
+          emailInput.focus();
+          return;
+        }
+        if (!password) {
+          showError("Please enter your password.");
+          pwInput.classList.add("error-input");
+          pwInput.focus();
+          return;
+        }
+        setLoading(true);
+        try {
+          const credential = await signInWithEmailAndPassword(
+            auth,
+            email,
+            password,
+          );
+          const userDoc = await getDoc(doc(db, "users", credential.user.uid));
+          if (!userDoc.exists() || userDoc.data().role !== "admin") {
+            await signOut(auth);
+            showError("Access denied. Admin privileges required.");
+            setLoading(false);
+            return;
+          }
+          showSuccess();
+        } catch (err) {
+          showError(friendlyError(err.code));
+          setLoading(false);
+        }
+      });
+
+      function showSuccess() {
+        loginForm.style.display = "none";
+        successBox.style.display = "block";
+        setTimeout(() => {
+          window.location.href = "admin.html";
+        }, 1500);
+      }
+      function setLoading(s) {
+        loginBtn.disabled = s;
+        loginBtn.classList.toggle("loading", s);
+      }
+      function showError(msg) {
+        errorText.textContent = msg;
+        errorMsg.classList.add("show");
+      }
+      function friendlyError(code) {
+        const map = {
+          "auth/invalid-email": "Invalid email format.",
+          "auth/user-not-found": "User not found.",
+          "auth/wrong-password": "Incorrect password.",
+          "auth/invalid-credential": "Invalid email or password.",
+          "auth/too-many-requests": "Too many attempts. Try again later.",
+        };
+        return map[code] || "Login failed. Please try again.";
+      }
+    </script>
+  </body>
+</html>

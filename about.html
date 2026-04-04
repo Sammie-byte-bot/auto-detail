@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Us — AutoDetail</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+  <style>
+    /* ══════════════════════════════════════════
+       LIGHT THEME — AutoDetail Design System
+    ══════════════════════════════════════════ */
+    :root {
+      --amber: #B8860B;           /* Rich amber/gold */
+      --amber-light: #D4A017;
+      --amber-pale: #FFF8E7;
+      --amber-dim: rgba(184,134,11,0.1);
+      --amber-border: rgba(184,134,11,0.25);
+
+      --navy: #1A2340;            /* Deep navy for headings */
+      --navy-mid: #2D3A5C;
+
+      --white: #FFFFFF;
+      --off-white: #F9FAFB;
+      --gray-50: #F3F4F6;
+      --gray-100: #E5E7EB;
+      --gray-200: #D1D5DB;
+      --gray-400: #9CA3AF;
+      --gray-500: #6B7280;
+      --gray-700: #374151;
+      --gray-900: #111827;
+
+      --text: #1A2340;
+      --text-body: #374151;
+      --text-muted: #6B7280;
+      --border: #E5E7EB;
+      --border-focus: rgba(184,134,11,0.5);
+      --radius: 14px;
+      --shadow-sm: 0 1px 3px rgba(0,0,0,0.07), 0 1px 2px rgba(0,0,0,0.05);
+      --shadow: 0 4px 16px rgba(0,0,0,0.08), 0 1px 4px rgba(0,0,0,0.04);
+      --shadow-md: 0 8px 30px rgba(0,0,0,0.1), 0 2px 8px rgba(0,0,0,0.04);
+      --shadow-lg: 0 20px 50px rgba(0,0,0,0.12), 0 4px 16px rgba(0,0,0,0.06);
+      --transition: all 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--white); color: var(--text-body); overflow-x: hidden; line-height: 1.7; }
+    h1,h2,h3,h4,h5 { font-family: 'Syne', sans-serif; color: var(--text); line-height: 1.1; }
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: var(--gray-50); }
+    ::-webkit-scrollbar-thumb { background: var(--amber); border-radius: 2px; }
+
+    /* ── NAV ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+      padding: 1.1rem 0; background: rgba(255,255,255,0.9);
+      backdrop-filter: blur(20px); border-bottom: 1px solid transparent;
+      transition: var(--transition);
+    }
+    nav.scrolled { background: rgba(255,255,255,0.97); border-bottom-color: var(--border); box-shadow: var(--shadow-sm); }
+    .nav-inner { max-width: 1280px; margin: 0 auto; padding: 0 2rem; display: flex; align-items: center; justify-content: space-between; }
+    .nav-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.25rem; color: var(--navy); text-decoration: none; display: flex; align-items: center; gap: 0.6rem; }
+    .nav-logo span { color: var(--amber-light); }
+    .logo-icon { width: 34px; height: 34px; background: var(--navy); border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 0.9rem; color: var(--amber-light); }
+    .nav-links { display: flex; align-items: center; gap: 2.2rem; list-style: none; }
+    .nav-links a { color: var(--gray-500); text-decoration: none; font-size: 0.875rem; font-weight: 500; transition: color 0.2s; position: relative; }
+    .nav-links a::after { content: ''; position: absolute; bottom: -4px; left: 0; width: 0; height: 2px; background: var(--amber-light); transition: width 0.3s; border-radius: 2px; }
+    .nav-links a:hover, .nav-links a.active { color: var(--navy); }
+    .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+    .nav-cta { background: var(--navy) !important; color: #fff !important; padding: 0.55rem 1.4rem; border-radius: 100px; font-weight: 700 !important; box-shadow: 0 2px 8px rgba(26,35,64,0.25); }
+    .nav-cta::after { display: none !important; }
+    .nav-cta:hover { background: var(--navy-mid) !important; transform: translateY(-1px); box-shadow: 0 6px 20px rgba(26,35,64,0.3) !important; }
+    .nav-hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; background: none; border: none; padding: 4px; }
+    .nav-hamburger span { display: block; width: 22px; height: 2px; background: var(--navy); border-radius: 2px; }
+    .mobile-menu { display: none; position: fixed; inset: 0; background: rgba(255,255,255,0.99); backdrop-filter: blur(30px); z-index: 999; flex-direction: column; align-items: center; justify-content: center; gap: 2rem; }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a { color: var(--navy); text-decoration: none; font-family: 'Syne', sans-serif; font-size: 1.8rem; font-weight: 800; transition: color 0.2s; }
+    .mobile-menu a:hover { color: var(--amber-light); }
+    .mobile-close { position: absolute; top: 1.5rem; right: 2rem; background: none; border: none; color: var(--navy); font-size: 1.5rem; cursor: pointer; }
+
+    /* ── BUTTONS ── */
+    .btn { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.85rem 2rem; border-radius: 100px; font-family: 'Syne', sans-serif; font-weight: 700; font-size: 0.9rem; text-decoration: none; border: none; cursor: pointer; transition: var(--transition); letter-spacing: 0.01em; }
+    .btn-primary { background: var(--navy); color: #fff; box-shadow: 0 4px 16px rgba(26,35,64,0.22); }
+    .btn-primary:hover { background: var(--navy-mid); transform: translateY(-2px); box-shadow: 0 10px 30px rgba(26,35,64,0.3); }
+    .btn-amber { background: var(--amber-light); color: var(--navy); box-shadow: 0 4px 16px rgba(212,160,23,0.3); }
+    .btn-amber:hover { background: var(--amber); color: #fff; transform: translateY(-2px); }
+    .btn-outline { background: transparent; color: var(--navy); border: 1.5px solid var(--gray-200); }
+    .btn-outline:hover { border-color: var(--navy); background: var(--gray-50); }
+
+    /* ── LAYOUT ── */
+    .container { max-width: 1280px; margin: 0 auto; padding: 0 2rem; }
+    .section { padding: 7rem 0; }
+    .section-alt { background: var(--gray-50); }
+    .divider { height: 1px; background: var(--border); }
+
+    /* ── LABELS & HEADINGS ── */
+    .label { display: inline-flex; align-items: center; gap: 0.4rem; font-size: 0.7rem; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--amber); background: var(--amber-pale); padding: 0.3rem 0.9rem; border-radius: 100px; margin-bottom: 1rem; border: 1px solid var(--amber-border); }
+    .section-heading { font-size: clamp(1.9rem, 4vw, 3.2rem); font-weight: 800; margin-bottom: 1.1rem; letter-spacing: -0.03em; color: var(--navy); }
+    .section-sub { font-size: 1.05rem; color: var(--text-muted); max-width: 560px; line-height: 1.8; }
+
+    /* ── REVEAL ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.65s ease, transform 0.65s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+    .reveal-delay-1 { transition-delay: 0.1s; } .reveal-delay-2 { transition-delay: 0.2s; } .reveal-delay-3 { transition-delay: 0.3s; }
+
+    /* ── PAGE HERO (light version) ── */
+    .page-hero { position: relative; padding: 9rem 0 5rem; overflow: hidden; background: linear-gradient(135deg, var(--navy) 0%, var(--navy-mid) 100%); }
+    .page-hero-bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.12; mix-blend-mode: luminosity; }
+    .page-hero-content { position: relative; z-index: 2; }
+    .breadcrumb { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.5rem; font-size: 0.82rem; color: rgba(255,255,255,0.55); }
+    .breadcrumb a { color: var(--amber-light); text-decoration: none; }
+    .breadcrumb i { font-size: 0.55rem; }
+    .page-hero .label { background: rgba(212,160,23,0.18); border-color: rgba(212,160,23,0.35); color: var(--amber-light); }
+    .page-hero .section-heading { color: #fff; }
+    .page-hero .hero-sub { color: rgba(255,255,255,0.7); font-size: 1.05rem; max-width: 500px; line-height: 1.8; }
+
+    /* ── VALUE CARDS ── */
+    .value-card { background: var(--white); border: 1px solid var(--border); border-radius: var(--radius); padding: 2.2rem; transition: var(--transition); }
+    .value-card:hover { border-color: var(--amber-border); box-shadow: var(--shadow-md); transform: translateY(-5px); }
+    .value-icon { width: 52px; height: 52px; background: var(--amber-pale); border: 1px solid var(--amber-border); border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 1.3rem; color: var(--amber-light); margin-bottom: 1.4rem; }
+    .value-card h3 { font-size: 1.05rem; font-weight: 700; color: var(--navy); margin-bottom: 0.65rem; }
+    .value-card p { font-size: 0.875rem; color: var(--text-muted); line-height: 1.8; }
+
+    /* ── TEAM ── */
+    .team-card { text-align: center; }
+    .team-card img { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 14px; border: 3px solid var(--gray-100); transition: border-color 0.3s; }
+    .team-card:hover img { border-color: var(--amber-light); }
+    .team-role { font-size: 0.82rem; color: var(--amber); font-weight: 600; margin-top: 0.25rem; }
+
+    /* ── CTA BANNER ── */
+    .cta-strip { background: var(--navy); border-radius: 20px; padding: 4rem; text-align: center; position: relative; overflow: hidden; }
+    .cta-strip::before { content: ''; position: absolute; top: -60%; left: 50%; transform: translateX(-50%); width: 600px; height: 600px; border-radius: 50%; background: rgba(212,160,23,0.06); }
+    .cta-strip h2 { color: #fff; }
+    .cta-strip p { color: rgba(255,255,255,0.65); }
+
+    /* ── FOOTER ── */
+    footer { background: var(--navy); color: rgba(255,255,255,0.75); padding: 5rem 0 2.5rem; }
+    .footer-logo { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.2rem; color: #fff; text-decoration: none; display: inline-flex; align-items: center; gap: 0.6rem; }
+    .footer-logo .logo-icon { background: rgba(255,255,255,0.12); color: var(--amber-light); }
+    .footer-logo span { color: var(--amber-light); }
+    .footer-desc { font-size: 0.875rem; color: rgba(255,255,255,0.5); line-height: 1.8; margin: 1rem 0 1.5rem; max-width: 270px; }
+    .footer-social { display: flex; gap: 0.6rem; }
+    .footer-social a { width: 34px; height: 34px; border-radius: 50%; background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); display: flex; align-items: center; justify-content: center; color: rgba(255,255,255,0.55); font-size: 0.78rem; text-decoration: none; transition: var(--transition); }
+    .footer-social a:hover { background: var(--amber-light); border-color: var(--amber-light); color: var(--navy); }
+    .footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1fr; gap: 3rem; margin-bottom: 3rem; }
+    .footer-col h4 { font-family: 'Syne', sans-serif; font-size: 0.75rem; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: #fff; margin-bottom: 1.2rem; }
+    .footer-link { display: block; color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.875rem; padding: 0.22rem 0; transition: color 0.2s; }
+    .footer-link:hover { color: var(--amber-light); }
+    .footer-bottom { padding-top: 2rem; border-top: 1px solid rgba(255,255,255,0.08); display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 1rem; }
+    .footer-bottom p { font-size: 0.82rem; color: rgba(255,255,255,0.35); }
+    .footer-contact-link { color: rgba(255,255,255,0.5); text-decoration: none; font-size: 0.875rem; display: flex; align-items: center; gap: 0.5rem; transition: color 0.2s; margin-bottom: 0.5rem; }
+    .footer-contact-link:hover { color: var(--amber-light); }
+    .footer-contact-link i { color: var(--amber-light); width: 16px; }
+
+    /* ── RESPONSIVE ── */
+    @media(max-width:768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+      .about-split { flex-direction: column !important; gap: 3rem !important; }
+      .team-grid { grid-template-columns: 1fr 1fr !important; }
+      .values-grid { grid-template-columns: 1fr !important; }
+      .section { padding: 4.5rem 0; }
+    }
+    @media(max-width:480px) { .footer-grid { grid-template-columns: 1fr; } }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-inner">
+    <a href="index.html" class="nav-logo">
+      <div class="logo-icon"><i class="fa-solid fa-car-side"></i></div>
+      Auto<span>Detail</span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="about.html" class="active">About</a></li>
+      <li><a href="showcase.html">Showcase</a></li>
+      <li><a href="blog.html">Blog</a></li>
+      <li><a href="contact.html">Contact</a></li>
+      <li><a href="booking.html" class="nav-cta">Book Now</a></li>
+    </ul>
+    <button class="nav-hamburger" id="hamburger" aria-label="Menu"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mobile-menu">
+  <button class="mobile-close" id="mobile-close"><i class="fa-solid fa-xmark"></i></button>
+  <a href="index.html">Home</a>
+  <a href="about.html">About</a>
+  <a href="showcase.html">Showcase</a>
+  <a href="blog.html">Blog</a>
+  <a href="contact.html">Contact</a>
+  <a href="booking.html" style="color:var(--amber-light)">Book Now →</a>
+</div>
+
+<!-- PAGE HERO -->
+<section class="page-hero">
+  <img class="page-hero-bg" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=1920&q=80" alt="Team"/>
+  <div class="page-hero-content container">
+    <div class="breadcrumb reveal"><a href="index.html">Home</a><i class="fa-solid fa-chevron-right"></i><span>About Us</span></div>
+    <div class="label reveal reveal-delay-1"><i class="fa-solid fa-users"></i> Our Story</div>
+    <h1 class="section-heading reveal reveal-delay-2">Passion for<br>Perfection</h1>
+    <p class="hero-sub reveal reveal-delay-3">Founded in 2010 by Alex Chen — a car enthusiast who believed every vehicle deserved elite care.</p>
+  </div>
+</section>
+
+<!-- STORY SECTION -->
+<section class="section">
+  <div class="container">
+    <div class="about-split" style="display:flex;gap:5rem;align-items:center">
+      <div style="flex:1" class="reveal">
+        <div class="label"><i class="fa-solid fa-book-open"></i> The Beginning</div>
+        <h2 class="section-heading">Our Founding Story</h2>
+        <p style="color:var(--text-muted);line-height:1.9;margin-bottom:1.4rem">At AutoDetail Car Wash, we're passionate about providing exceptional car care experiences. Founded in 2010 by car enthusiast and entrepreneur Alex Chen, our company has grown to become a trusted name in the industry — known for meticulous attention to detail and an unwavering commitment to customer satisfaction.</p>
+        <p style="color:var(--text-muted);line-height:1.9;margin-bottom:2rem">With a team of certified technicians and a dedication to using only the highest-quality products and equipment, we strive to exceed our clients' expectations with every single visit. What started as a one-bay operation has grown to a full-service facility processing thousands of vehicles annually.</p>
+        <a href="booking.html" class="btn btn-primary"><i class="fa-solid fa-calendar-check"></i> Book a Service</a>
+      </div>
+      <div style="flex:1;position:relative" class="reveal reveal-delay-2">
+        <img src="https://images.unsplash.com/photo-1619642751034-765dfdf7c58e?w=800&q=80" alt="Car detailing" style="width:100%;border-radius:16px;object-fit:cover;height:440px;box-shadow:var(--shadow-lg)"/>
+        <div style="position:absolute;bottom:-1.5rem;left:-1.5rem;background:var(--navy);border-radius:12px;padding:1.2rem 1.5rem;color:#fff;box-shadow:var(--shadow-md)">
+          <div style="font-family:'Syne',sans-serif;font-size:1.8rem;font-weight:800;line-height:1;color:var(--amber-light)">15+</div>
+          <div style="font-size:0.75rem;font-weight:700;letter-spacing:0.05em;color:rgba(255,255,255,0.7);margin-top:0.2rem">Years of Excellence</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- VALUES -->
+<section class="section section-alt">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem">
+      <div class="label reveal"><i class="fa-solid fa-heart"></i> What Drives Us</div>
+      <h2 class="section-heading reveal reveal-delay-1">Our Core Values</h2>
+    </div>
+    <div class="values-grid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem">
+      <div class="value-card reveal">
+        <div class="value-icon"><i class="fa-solid fa-medal"></i></div>
+        <h3>Excellence</h3>
+        <p>We never settle for "good enough." Every vehicle we touch is treated with the same level of care and precision, regardless of make, model, or service tier.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-1">
+        <div class="value-icon"><i class="fa-solid fa-handshake"></i></div>
+        <h3>Integrity</h3>
+        <p>Transparent pricing, honest assessments, and consistent quality. We say what we do and do what we say — earning trust one vehicle at a time.</p>
+      </div>
+      <div class="value-card reveal reveal-delay-2">
+        <div class="value-icon"><i class="fa-solid fa-leaf"></i></div>
+        <h3>Sustainability</h3>
+        <p>Eco-friendly soaps, water recycling systems, and biodegradable packaging. Premium care that's gentle on your car and the environment.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- STATS ROW -->
+<section style="padding:4rem 0;background:var(--navy)">
+  <div class="container">
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2rem;text-align:center">
+      <div class="reveal">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--amber-light);line-height:1"><span data-count="5000">0</span>+</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.55);margin-top:0.4rem;letter-spacing:0.03em">Vehicles Detailed</div>
+      </div>
+      <div class="reveal reveal-delay-1">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--amber-light);line-height:1"><span data-count="250">0</span>+</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.55);margin-top:0.4rem">5-Star Reviews</div>
+      </div>
+      <div class="reveal reveal-delay-2">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--amber-light);line-height:1"><span data-count="15">0</span>+</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.55);margin-top:0.4rem">Years in Business</div>
+      </div>
+      <div class="reveal reveal-delay-3">
+        <div style="font-family:'Syne',sans-serif;font-size:2.8rem;font-weight:800;color:var(--amber-light);line-height:1"><span data-count="99">0</span>%</div>
+        <div style="font-size:0.85rem;color:rgba(255,255,255,0.55);margin-top:0.4rem">Satisfaction Rate</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TEAM -->
+<section class="section">
+  <div class="container">
+    <div style="text-align:center;margin-bottom:3.5rem">
+      <div class="label reveal"><i class="fa-solid fa-users"></i> The Experts</div>
+      <h2 class="section-heading reveal reveal-delay-1">Meet Our Team</h2>
+      <p class="section-sub reveal reveal-delay-2" style="margin:0 auto">A dedicated crew of certified detailing professionals with a shared obsession for flawless results.</p>
+    </div>
+    <div class="team-grid" style="display:grid;grid-template-columns:repeat(4,1fr);gap:1.5rem">
+      <div class="team-card reveal">
+        <div style="position:relative;margin-bottom:1.2rem">
+          <img src="https://images.unsplash.com/photo-1560250097-0b93528c311a?w=300&h=300&fit=crop&q=80" alt="Alex Chen"/>
+          <div style="position:absolute;bottom:0.75rem;right:0.75rem;background:var(--navy);color:var(--amber-light);font-size:0.62rem;font-weight:800;padding:0.2rem 0.65rem;border-radius:100px;letter-spacing:0.06em">FOUNDER</div>
+        </div>
+        <h4 style="font-size:1rem;font-weight:700;color:var(--navy)">Alex Chen</h4>
+        <p class="team-role">Founder & CEO</p>
+      </div>
+      <div class="team-card reveal reveal-delay-1">
+        <div style="margin-bottom:1.2rem"><img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=300&h=300&fit=crop&q=80" alt="Maya Rodriguez"/></div>
+        <h4 style="font-size:1rem;font-weight:700;color:var(--navy)">Maya Rodriguez</h4>
+        <p class="team-role">Head of Detailing</p>
+      </div>
+      <div class="team-card reveal reveal-delay-2">
+        <div style="margin-bottom:1.2rem"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&h=300&fit=crop&q=80" alt="James Park"/></div>
+        <h4 style="font-size:1rem;font-weight:700;color:var(--navy)">James Park</h4>
+        <p class="team-role">Paint Correction Specialist</p>
+      </div>
+      <div class="team-card reveal reveal-delay-3">
+        <div style="margin-bottom:1.2rem"><img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=300&h=300&fit=crop&q=80" alt="Lisa Thompson"/></div>
+        <h4 style="font-size:1rem;font-weight:700;color:var(--navy)">Lisa Thompson</h4>
+        <p class="team-role">Customer Experience Lead</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section style="padding:4rem 0;background:var(--gray-50)">
+  <div class="container">
+    <div class="cta-strip reveal">
+      <div style="position:relative;z-index:1">
+        <div class="label" style="background:rgba(212,160,23,0.18);border-color:rgba(212,160,23,0.35);color:var(--amber-light);margin-bottom:1.5rem"><i class="fa-solid fa-calendar-check"></i> Start Today</div>
+        <h2 class="section-heading" style="color:#fff;max-width:520px;margin:0 auto 1rem">Ready to Experience the Difference?</h2>
+        <p style="color:rgba(255,255,255,0.6);margin-bottom:2.5rem">Book your first appointment and see why thousands of clients trust AutoDetail.</p>
+        <a href="booking.html" class="btn btn-amber"><i class="fa-solid fa-calendar-check"></i> Book Your Service</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <a href="index.html" class="footer-logo">
+          <div class="logo-icon"><i class="fa-solid fa-car-side"></i></div>
+          Auto<span>Detail</span>
+        </a>
+        <p class="footer-desc">Transforming the car care experience, one vehicle at a time. Premium service, flawless results.</p>
+        <div class="footer-social">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="X"><i class="fa-brands fa-x-twitter"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+          <a href="#" aria-label="YouTube"><i class="fa-brands fa-youtube"></i></a>
+        </div>
+        <div style="margin-top:1.5rem">
+          <a href="tel:+15550000000" class="footer-contact-link"><i class="fa-solid fa-phone"></i>+1 (555) 000-0000</a>
+          <a href="mailto:hello@autodetail.com" class="footer-contact-link"><i class="fa-solid fa-envelope"></i>hello@autodetail.com</a>
+          <span class="footer-contact-link"><i class="fa-solid fa-location-dot"></i>123 Main Street, Anytown, USA</span>
+        </div>
+      </div>
+      <div class="footer-col">
+        <h4>Services</h4>
+        <a href="booking.html" class="footer-link">Hand Wash</a>
+        <a href="booking.html" class="footer-link">Interior Detail</a>
+        <a href="booking.html" class="footer-link">Paint Correction</a>
+        <a href="booking.html" class="footer-link">Ceramic Coating</a>
+      </div>
+      <div class="footer-col">
+        <h4>Company</h4>
+        <a href="about.html" class="footer-link">About Us</a>
+        <a href="showcase.html" class="footer-link">Showcase</a>
+        <a href="blog.html" class="footer-link">Blog</a>
+        <a href="contact.html" class="footer-link">Contact</a>
+      </div>
+      <div class="footer-col">
+        <h4>Legal</h4>
+        <a href="#" class="footer-link">Privacy Policy</a>
+        <a href="#" class="footer-link">Terms of Service</a>
+        <a href="#" class="footer-link">Cookies</a>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2026 AutoDetail Car Wash. All rights reserved.</p>
+      <div style="display:flex;gap:1.5rem">
+        <a href="#" class="footer-link">Privacy</a>
+        <a href="#" class="footer-link">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>
+
+<script>
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => nav.classList.toggle('scrolled', window.scrollY > 40));
+  document.getElementById('hamburger').addEventListener('click', () => document.getElementById('mobile-menu').classList.add('open'));
+  document.getElementById('mobile-close').addEventListener('click', () => document.getElementById('mobile-menu').classList.remove('open'));
+  const observer = new IntersectionObserver(e => e.forEach(el => { if(el.isIntersecting) el.target.classList.add('visible'); }), {threshold:0.1});
+  document.querySelectorAll('.reveal').forEach(r => observer.observe(r));
+  document.querySelectorAll('[data-count]').forEach(el => {
+    const obs = new IntersectionObserver(entries => {
+      if(!entries[0].isIntersecting) return; obs.disconnect();
+      const target = parseFloat(el.dataset.count); const dur = 1600; const t0 = performance.now();
+      const step = ts => { const p = Math.min((ts-t0)/dur,1); const ease = 1-Math.pow(1-p,4); el.textContent = Math.round(target*ease).toLocaleString(); if(p<1) requestAnimationFrame(step); };
+      requestAnimationFrame(step);
+    }, {threshold:0.5});
+    obs.observe(el);
+  });
+</script>
+</body>
+</html>

@@ -1,0 +1,110 @@
+{
+  "site_name": "auto-detail-car-wash",
+  "title": "Auto Detail Car Wash",
+  "description": "A comprehensive car wash website for booking and detailing services",
+  "site_type": "business",
+  "palette_preference": "midnight_gold",
+  "font_pair": {
+    "heading": "Playfair Display",
+    "body": "DM Sans"
+  },
+  "pages": [
+    {
+      "name": "index",
+      "title": "Home",
+      "filename": "index.html",
+      "sections": [
+        "hero",
+        "tally_stats",
+        "services",
+        "story",
+        "how_it_works",
+        "tally",
+        "footer"
+      ],
+      "description": "Main landing page with services and booking information"
+    },
+    {
+      "name": "about",
+      "title": "About Us",
+      "filename": "about.html",
+      "sections": [
+        "page_image",
+        "about_us",
+        "tally",
+        "meet_our_team",
+        "company_info",
+        "google_map",
+        "footer"
+      ],
+      "description": "Page with company information and team details"
+    },
+    {
+      "name": "blog",
+      "title": "Blog",
+      "filename": "blog.html",
+      "sections": [
+        "blog_posts",
+        "footer"
+      ],
+      "description": "Page with blog posts and articles"
+    },
+    {
+      "name": "showcase",
+      "title": "Showcase",
+      "filename": "showcase.html",
+      "sections": [
+        "image_carousel",
+        "footer"
+      ],
+      "description": "Page with image carousel and services showcase"
+    },
+    {
+      "name": "contact",
+      "title": "Contact Us",
+      "filename": "contact.html",
+      "sections": [
+        "contact_form",
+        "footer"
+      ],
+      "description": "Page with contact form and contact information"
+    },
+    {
+      "name": "booking",
+      "title": "Book Now",
+      "filename": "booking.html",
+      "sections": [
+        "booking_form",
+        "footer"
+      ],
+      "description": "Page with booking form and appointment scheduling"
+    }
+  ],
+  "firebase_features": [
+    "firestore",
+    "hosting"
+  ],
+  "firebase_collections": [
+    {
+      "name": "services",
+      "fields": [
+        "service_name",
+        "service_description",
+        "price"
+      ]
+    },
+    {
+      "name": "appointments",
+      "fields": [
+        "appointment_id",
+        "customer_name",
+        "service_name",
+        "date",
+        "time"
+      ]
+    }
+  ],
+  "has_auth": false,
+  "has_dashboard": false,
+  "has_payment": false
+}
