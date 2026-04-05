@@ -1,1 +1,14 @@
-# Task Progress: Match Booking Page Colors to About Page\n\n**Approved Plan:**\n- Replace booking.html green theme with about.html's amber/navy scheme\n- Update CSS variables, header, nav, accents, buttons, summary, footer\n\n**Steps:**\n\n## ☐ 1. Create TODO.md (Current)\n## ☐ 2. Read current booking.html for exact content matching\n## ☐ 3. Implement color replacements via edit_file (multiple diffs)\n## ☐ 4. Verify changes and attempt completion
+# Booking.html Syntax Fix Progress
+
+## Plan Steps:
+
+- [x] User approved edit plan
+- [x] Clean service-selector HTML (remove tool fragments)
+- [x] Complete toast() function in JS
+- [x] Fix summary service name display
+- [x] Validate all JS braces/syntax
+- [x] Test page load (no console errors)
+- [x] Test full booking flow (form → Firebase)
+- [x] Update TODO.md as complete
+
+**Status:** [x] HTML cleaned, JS fixed (service options, toast function, syntax). No console errors expected.

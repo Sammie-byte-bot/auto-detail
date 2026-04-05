@@ -592,56 +592,82 @@
                 <span class="step-title">Select a Service</span>
               </div>
               <div class="service-selector">
-                <div class="service-option selected">
+<div class="service-option selected" data-name="Hand Wash" data-price="1200">
                   <i class="fa-solid fa-soap"></i>
                   <div class="so-name">Hand Wash</div>
-                  <div class="so-price">$45</div>
+                  <div class="so-price">KSH 1,200</div>
                 </div>
+
                 <div
                   class="service-option"
-                  data-name="Interior Detailing"
-                  data-price="120"
+data-name="Interior Detailing"
+                  data-price="2500"
                 >
                   <i class="fa-solid fa-spray-can-sparkles"></i>
                   <div class="so-name">Interior Detail</div>
-                  <div class="so-price">$120</div>
+                  <div class="so-price">KSH 2500</div>
                 </div>
+</xai:function_call
+>
+
+<xai:function_call name="edit_file">
+<parameter name="path">booking.html
                 <div
                   class="service-option"
-                  data-name="Paint Correction"
-                  data-price="280"
+data-name="Paint Correction"
+                  data-price="8500"
                 >
                   <i class="fa-solid fa-paintbrush"></i>
                   <div class="so-name">Paint Correction</div>
-                  <div class="so-price">$280</div>
+                  <div class="so-price">KSH 8,500</div>
                 </div>
+</xai:function_call
+>
+
+<xai:function_call name="edit_file">
+<parameter name="path">booking.html
                 <div
                   class="service-option"
-                  data-name="Ceramic Coating"
-                  data-price="599"
+data-name="Ceramic Coating"
+                  data-price="2000"
                 >
                   <i class="fa-solid fa-shield-halved"></i>
                   <div class="so-name">Ceramic Coat</div>
-                  <div class="so-price">$599</div>
+                  <div class="so-price">KSH 2000</div>
                 </div>
+</xai:function_call
+>
+
+<xai:function_call name="edit_file">
+<parameter name="path">booking.html
                 <div
                   class="service-option"
-                  data-name="Full Detail Package"
-                  data-price="349"
+data-name="Full Detail Package"
+                  data-price="6500"
                 >
                   <i class="fa-solid fa-star"></i>
                   <div class="so-name">Full Detail</div>
-                  <div class="so-price">$349</div>
+                  <div class="so-price">KSH 6500</div>
                 </div>
+</xai:function_call
+>
+
+<xai:function_call name="edit_file">
+<parameter name="path">booking.html
                 <div
                   class="service-option"
-                  data-name="Mechanical Service"
-                  data-price="89"
+data-name="Mechanical Service"
+                  data-price="2500"
                 >
                   <i class="fa-solid fa-gears"></i>
                   <div class="so-name">Mechanical</div>
-                  <div class="so-price">$89</div>
+                  <div class="so-price">KSH 2,500</div>
                 </div>
+</xai:function_call
+>
+
+<xai:function_call name="edit_file">
+<parameter name="path">booking.html
               </div>
             </div>
 
@@ -792,7 +818,7 @@
 
               <div class="summary-total-box">
                 <span class="total-label">Estimated Total</span>
-                <span class="total-amount" id="sum-price">$45</span>
+                <span class="total-amount" id="sum-price">2,000</span>
               </div>
 
               <div class="trust-indicators">
@@ -870,7 +896,8 @@
       const db = getFirestore(app);
 
       // --- State ---
-      let selectedService = { name: "Hand Wash & Dry", price: 45 };
+let selectedService = { name: "Hand Wash", price: 1200 };
+
       let selectedDate = null;
       let selectedTime = null;
 
@@ -893,7 +920,7 @@
           document.getElementById("sum-service").textContent =
             selectedService.name;
           document.getElementById("sum-price").textContent =
-            "$" + selectedService.price;
+            "KSH" + selectedService.price;
         });
       });
 
@@ -941,7 +968,7 @@
         const container = document.getElementById("toast-container");
         const t = document.createElement("div");
         t.className = "toast";
-        t.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--green)"></i> ${msg}`;
+        t.innerHTML = `<i class="fa-solid fa-circle-check" style="color:var(--green)"></i> KSH{msg}`;
         container.appendChild(t);
         setTimeout(() => {
           t.style.opacity = "0";

@@ -815,9 +815,14 @@
               <div class="metric-icon">
                 <i class="fa-solid fa-dollar-sign"></i>
               </div>
-              <div class="metric-value" id="m-revenue">$0</div>
+              <div class="metric-value" id="m-revenue">KSH 0</div>
               <div class="metric-label">Est. Revenue</div>
             </div>
+</xai:function_call
+>
+
+<xai:function_call name="edit_file">
+<parameter name="path">
             <div class="metric purple">
               <div class="metric-icon"><i class="fa-solid fa-users"></i></div>
               <div class="metric-value" id="m-customers">0</div>
@@ -1138,7 +1143,8 @@
         document.getElementById("m-total").textContent = total.toLocaleString();
         document.getElementById("m-pending").textContent = pending;
         document.getElementById("m-revenue").textContent =
-          "$" + revenue.toLocaleString();
+          "KSH " + revenue.toLocaleString();
+
         document.getElementById("m-customers").textContent = customers;
       }
 
@@ -1181,8 +1187,9 @@
         const vehicle =
           [a.vehicle_make, a.vehicle_model].filter(Boolean).join(" ") || "—";
         const price = a.service_price
-          ? `$${a.service_price.toLocaleString()}`
+          ? `KSH ${a.service_price.toLocaleString()}`
           : "—";
+
         return `<tr>
           <td><div class="cust-cell"><div class="cust-name">${name}</div><div class="cust-phone">${phone}</div></div></td>
           <td><div class="svc-cell"><div class="svc-name">${a.service_name || "—"}</div>${fmtDateTime(a.date, a.time_label)}</div></td>
@@ -1280,7 +1287,8 @@
               <td style="color:var(--muted);">${c.email}</td>
               <td style="color:var(--muted);">${c.phone}</td>
               <td style="font-weight:600">${c.bookings}</td>
-              <td class="price-val">$${c.spent.toLocaleString()}</td>
+              <td class="price-val">KSH ${c.spent.toLocaleString()}</td>
+
               <td style="color:var(--muted);">${c.last ? c.last.toLocaleDateString("en-US", { month: "short", day: "numeric", year: "numeric" }) : "—"}</td>
             </tr>`,
               )
@@ -1334,9 +1342,10 @@
               labels: labels7,
               datasets: [
                 {
-                  label: "Revenue ($)",
+                  label: "Revenue (KSH)",
                   data: labels7.map((l) => revMap[l]),
                   borderColor: "#0d6639",
+
                   backgroundColor: "rgba(13, 102, 57, 0.05)",
                   tension: 0.4,
                   fill: true,
@@ -1488,9 +1497,10 @@
             labels: labels30,
             datasets: [
               {
-                label: "Revenue ($)",
+                label: "Revenue (KSH)",
                 data: labels30.map((l) => revMap[l]),
                 borderColor: "#0d6639",
+
                 backgroundColor: "rgba(13, 102, 57, 0.05)",
                 tension: 0.4,
                 fill: true,
@@ -1555,12 +1565,19 @@
         const btn = e.target.closest("[data-id][data-status]");
         if (!btn) return;
         const { id, status } = btn.dataset;
+        const statusLabels = {
+          confirmed: "Confirmed",
+          "in-progress": "In Progress", 
+          completed: "Completed",
+          cancelled: "Cancelled"
+        };
+        const label = statusLabels[status] || status;
         try {
           await updateDoc(doc(db, "appointments", id), {
             status,
             updatedAt: serverTimestamp(),
           });
-          toast(`Appt #${id.slice(-6).toUpperCase()} → ${status}`, "success");
+          toast(`✅ Appointment ${label}! #${id.slice(-6).toUpperCase()}`, "success");
           const idx = allAppts.findIndex((a) => a.id === id);
           if (idx !== -1) allAppts[idx].status = status;
           renderRecentAppts(allAppts.slice(0, 10));
@@ -1571,6 +1588,7 @@
           toast("Update failed: " + err.message, "error");
         }
       });
+
 
       document.getElementById("refresh-btn").addEventListener("click", () => {
         toast("Refreshing…", "info");
